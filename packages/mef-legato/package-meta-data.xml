@@ -1,0 +1,13 @@
+<ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
+  <name>mef-legato</name>
+  <package-version>1.0</package-version>
+  <description>Template-based mef-legato resource facing service</description>
+  <ncs-min-version>4.4</ncs-min-version>
+
+  <component>
+    <name>main</name>
+    <application>
+      <python-class-name>mef_legato.mef_services.Main</python-class-name>
+    </application>
+  </component>
+</ncs-package>

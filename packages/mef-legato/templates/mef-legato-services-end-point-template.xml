@@ -1,0 +1,24 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$NID_DEVICE}</name>
+      <description>{$BANDWIDTH_PROFILE}</description>
+      <config>
+        <profiles xmlns="http://tailf.com/ned/tdre">
+          <policy>
+            <priority>
+              <priorityPolicy>
+                <name>{$BANDWIDTH_PROFILE}</name>
+                <bandwidth>
+                  <id>1</id>
+                  <cir>{$CIR}</cir>
+                  <eir>{$EIR}</eir>
+                </bandwidth>
+              </priorityPolicy>
+            </priority>
+          </policy>
+        </profiles>
+      </config>
+    </device>
+  </devices>
+</config-template>

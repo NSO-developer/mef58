@@ -1,0 +1,59 @@
+<config xmlns="http://tail-f.com/ns/config/1.0">
+  <mef-interfaces xmlns="urn:mef:yang:mef-legato-interfaces">
+    <carrier-ethernet>
+      <subscriber-interfaces>
+        <uni>
+          <uni-id>uni-kvantel</uni-id>
+          <device xmlns="http://cisco.com/yang/nso-legato">1645-norway</device>
+          <physical-layers>
+            <links>
+              <link>
+                <link-number>0</link-number>
+                <ieee8023-phy xmlns:mef-types="urn:mef:yang:mef-types">mef-types:ieee8023-1000BASE-SX</ieee8023-phy>
+              </link>
+            </links>
+          </physical-layers>
+          <max-frame-size>2000</max-frame-size>
+          <service-multiplexing-enabled>false</service-multiplexing-enabled>
+          <default-ce-vlan-id>1</default-ce-vlan-id>
+          <max-num-of-evcs>1</max-num-of-evcs>
+          <l2cp-address-set>ctb</l2cp-address-set>
+        </uni>
+        <uni>
+          <uni-id>uni-telia2</uni-id>
+          <device xmlns="http://cisco.com/yang/nso-legato">1645-finland</device>
+          <physical-layers>
+            <links>
+              <link>
+                <link-number>0</link-number>
+                <ieee8023-phy xmlns:mef-types="urn:mef:yang:mef-types">mef-types:ieee8023-1000BASE-SX</ieee8023-phy>
+              </link>
+            </links>
+          </physical-layers>
+          <max-frame-size>2000</max-frame-size>
+          <service-multiplexing-enabled>false</service-multiplexing-enabled>
+          <default-ce-vlan-id>1</default-ce-vlan-id>
+          <max-num-of-evcs>1</max-num-of-evcs>
+          <l2cp-address-set>ctb</l2cp-address-set>
+        </uni>
+        <uni>
+          <uni-id>uni-telia1</uni-id>
+          <device xmlns="http://cisco.com/yang/nso-legato">1645-sweden</device>
+          <physical-layers>
+            <links>
+              <link>
+                <link-number>0</link-number>
+                <ieee8023-phy xmlns:mef-types="urn:mef:yang:mef-types">mef-types:ieee8023-1000BASE-SX</ieee8023-phy>
+              </link>
+            </links>
+          </physical-layers>
+          <max-frame-size>2000</max-frame-size>
+          <service-multiplexing-enabled>false</service-multiplexing-enabled>
+          <default-ce-vlan-id>1</default-ce-vlan-id>
+          <max-num-of-evcs>1</max-num-of-evcs>
+          <l2cp-address-set>ctb</l2cp-address-set>
+        </uni>
+      </subscriber-interfaces>
+    </carrier-ethernet>
+  </mef-interfaces>
+</config>

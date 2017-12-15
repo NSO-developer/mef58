@@ -1,0 +1,29 @@
+module nso-legato {
+  namespace "http://cisco.com/yang/nso-legato";
+  prefix nso-legato;
+
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  import mef-legato-interfaces {
+    prefix mi;
+  }
+
+  description
+    "This module links the public MEF Legato YANG models to the
+     model in Cisco NSO";
+
+  revision 2017-11-22 {
+    description
+      "Initial Version.";
+  }
+
+  augment "/mi:mef-interfaces/mi:carrier-ethernet/mi:subscriber-interfaces/mi:uni" {
+    leaf device {
+      type leafref {
+        path "/ncs:devices/ncs:device/ncs:name";
+      }
+    }
+  }
+}

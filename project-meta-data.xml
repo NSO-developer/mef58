@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project-meta-data xmlns="http://tail-f.com/ns/ncs-project">
+  <name>mef58</name>
+  <project-version>1.1</project-version>
+  <description>MEF58 demo</description>
+  <package>
+    <name>oneaccess-tdre</name>
+    <local/>
+  </package>
+  <package>
+    <name>mef-legato</name>
+    <local/>
+  </package>
+</project-meta-data>
