@@ -5,20 +5,20 @@ MEFYANGS = yang/mef-global.yang yang/mef-legato-interfaces.yang yang/mef-legato-
 
 
 yang/mef-global.yang:
-	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/build/mef-global%402017-08-30.yang
+	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/src/model/standard/mef-global%402018-07-11.yang
 
 yang/mef-legato-interfaces.yang:
-	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/build/mef-legato-interfaces%402017-08-30.yang
+	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/src/model/standard/mef-legato-interfaces%402018-07-11.yang
 
 yang/mef-legato-services.yang:
-	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/build/mef-legato-services%402017-08-30.yang
+	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/src/model/standard/mef-legato-services%402018-07-11.yang
 	perl -pi -e \
 '$$_=qq(  import tailf-ncs {\n    prefix ncs;\n  }\n\n).$$_ if /organization "MEF Forum";/;'\
 '$$_.=qq(\n          uses ncs:service-data;\n          ncs:servicepoint "mef-services";\n\n) if /key "evc-id";/;'\
  $@
 
 yang/mef-types.yang:
-	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/build/mef-types%402017-08-30.yang
+	wget -O $@ https://raw.githubusercontent.com/MEF-GIT/YANG-public/master/src/model/standard/mef-types%402018-07-11.yang
 
 
 # Include standard NCS examples build definitions and rules

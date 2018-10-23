@@ -1,0 +1,13 @@
+module tdre-id {
+
+  namespace "http://tailf.com/ned/tdre-id";
+  prefix tdre-id;
+
+  import tailf-ncs-ned {
+    prefix ned;
+  }
+
+  identity oneaccess-tdre {
+    base ned:generic-ned-id;
+  }
+}

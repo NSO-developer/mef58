@@ -1,0 +1,19 @@
+<ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
+  <name>oneaccess-tdre</name>
+  <package-version>1.0</package-version>
+  <description>NED for the OneAccess TDRE</description>
+  <ncs-min-version>4.3</ncs-min-version>
+
+  <component>
+    <name>oneaccess-tdre</name>
+    <ned>
+      <generic>
+        <ned-id xmlns:tdre-id="http//tailf.com/ned/tdre-id">tdre-id:oneaccess-tdre</ned-id>
+        <java-class-name>com.tailf.packages.ned.tdre.tdreNed</java-class-name>
+      </generic>
+      <device>
+        <vendor>OneAccess</vendor>
+      </device>
+    </ned>
+  </component>
+</ncs-package>

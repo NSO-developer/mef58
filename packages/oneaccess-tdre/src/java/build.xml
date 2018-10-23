@@ -1,0 +1,93 @@
+<project name="package" basedir="." default="all">
+  <property environment="env"/>
+  <property name="build.dir" value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="src.dir" value="src"/>
+  <property name="rsc.dir" value="src/resources"/>
+  <property name="sharedjar.dir" value="../../shared-jar"/>
+  <property name="privatejar.dir" value="../../private-jar"/>
+  <property name="doc.dir" value="${build.dir}/javadoc"/>
+  <property name="ncs.dir" value="${env.NCS_DIR}/java/jar"/>
+  <property name="ncs.topdir" value="${env.NCS_DIR}"/>
+  <property name="package" value="tdre"/>
+  <property name="old-package" value="r1645"/>
+  <!-- old-package will change to package when refactoring r1645 to tdre -->
+  <property name="grammar-file"
+            value="src/com/tailf/packages/ned/tdre/parser/${old-package}.g4"/>
+  <property name="antlr-jar" value="antlr-4.7-complete.jar"/>
+
+
+  <!-- Retrieving compilation compability parameters from NCS
+       Remove the following row if this is not desired  -->
+  <property file="${env.NCS_DIR}/etc/ncs/java.properties" />
+  <!-- Set defaults if not set, if the above directive is removed
+       or the property file is missing these values will be used -->
+  <property name="ncs_java_source_ver" value="1.6"/>
+  <property name="ncs_java_target_ver" value="1.6"/>
+
+
+  <path id="core-libs">
+    <fileset dir="${ncs.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="antlr4">
+    <fileset dir="${privatejar.dir}">
+      <include name="${antlr-jar}"/>
+    </fileset>
+  </path>
+
+  <target name="all" depends="package" />
+
+
+  <target name="package" depends="compile">
+    <jar destfile="${sharedjar.dir}/${package}-ns.jar"
+         basedir="${classes.dir}"
+         includes="**/namespaces/*.class"/>
+    <jar destfile="${privatejar.dir}/${package}.jar"
+         basedir="${classes.dir}"
+         excludes="**/namespaces/*.class"
+         includes="**/*.class"/>
+  </target>
+
+  <target name="antlr">
+    <symlink link="${privatejar.dir}/${antlr-jar}"
+             resource="../${antlr-jar}"
+             overwrite="true"/>
+  </target>
+
+  <target name="rules" depends="antlr">
+    <exec executable="java">
+      <arg line="-jar ${privatejar.dir}/${antlr-jar} -visitor ${grammar-file}"/>
+    </exec>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete file="${sharedjar.dir}/${package}-ns.jar"/>
+    <delete file="${privatejar.dir}/${package}.jar"/>
+    <delete file="${privatejar.dir}/${antlr-jar}"/>
+  </target>
+
+  <target name="compile" depends="rules,antlr">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}"
+           destdir="${classes.dir}"
+           source="${ncs_java_source_ver}"
+           target="${ncs_java_target_ver}"
+           debug="on"
+           includeantruntime="false"
+           debuglevel="lines,vars,source"
+           encoding="UTF-8" >
+
+      <compilerarg value="-Xlint:unchecked"/>
+      <compilerarg value="-Xlint:deprecation"/>
+      <classpath refid="core-libs" />
+      <classpath refid="antlr4" />
+    </javac>
+
+  </target>
+
+
+</project>

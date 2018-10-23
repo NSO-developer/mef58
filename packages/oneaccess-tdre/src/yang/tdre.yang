@@ -1,0 +1,68 @@
+module tdre {
+
+  namespace "http://tailf.com/ned/tdre";
+  prefix tdre;
+
+  import tailf-common {
+    prefix tailf;
+  }
+
+  container profiles {
+    container policy {
+      container priority {
+        list priorityPolicy {
+          key name;
+
+          leaf name {
+            type string;
+          }
+          leaf algorithm {
+            type enumeration {
+              enum lowDelayWeightedFairQueueing;
+            }
+          }
+          leaf countingPolicy {
+            type enumeration {
+              enum packats;
+            }
+          }
+          list bandwidth {
+            key id;
+
+            leaf id {
+              type uint32;
+            }
+            leaf name {
+              type string;
+            }
+            leaf cir {
+              type uint32;
+            }
+            leaf eir {
+              type uint32;
+            }
+            leaf unit {
+              type enumeration {
+                enum bits/sec;
+                enum percent;
+              }
+              default bits/sec;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  rpc activate-configuration {
+    tailf:actionpoint ncsinternal {
+      tailf:internal;
+    }
+    output {
+      leaf result {
+        type string;
+      }
+    }
+  }
+}
