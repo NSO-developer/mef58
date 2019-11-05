@@ -1,25 +1,25 @@
-###########################
-# Overviww
-###########################
+# Overview
 
-This demo shows the use of the public MEF LSO Legato YANG modules and how to
-change the bandwidth profile for one endpoint.
+This demo shows the use of the public MEF LSO Legato YANG modules and how to change the bandwidth profile for one endpoint.
 
-The models are downloaded from the public MEF github repository at build time
-and augmented to tie them to the NSO device tree.
+The models are downloaded from the public MEF github repository at build time and augmented to tie them to the NSO device tree.
 
 
 Git repository:
- * https://github.com/MEF-GIT/YANG-public/tree/master/build
+
+* https://github.com/MEF-GIT/YANG-public/tree/master/build
 
 The MEF58 specification can be found here:
- * https://www.mef.net/resources/technical-specifications/download?id=97&fileid=file1
+
+* https://www.mef.net/resources/technical-specifications/download?id=97&fileid=file1
 
 The YANG modules including a service instance can be found here:
- * https://www.mef.net/resources/technical-specifications/download?id=97&fileid=file3
+
+* https://www.mef.net/resources/technical-specifications/download?id=97&fileid=file3
 
 
 The configation consists of:
+
  * Two global bandwidth profiles:
   - BANDWIDTH_LTE (cir 2000000 bits/sec)
   - BANDWIDTH_LTE2 (cir 3000000 bits/sec)
@@ -36,9 +36,7 @@ The configation consists of:
     - uni-telia2 (using bandwidth profile: BANDWIDTH_LTE)
 
 
-###########################
-# Roadmap
-###########################
+# Demo
 
 * Add MEF compatible configuration for NID devices.
 * Provision mef-interfaces as part of the service configuration.
@@ -47,49 +45,56 @@ The configation consists of:
 * Add interface configuration to TDRE NED. Send configuration to device.
 
 
-###########################
-# Build
-###########################
+## Build
 
+```
 make all
 make start
+```
 
+## Run
+When you have started NSO, enter the cli and do a ```sync-from``` on the devices.
 
-###########################
-# Run
-###########################
-
-ncs_cli -u admin -C
-
-# Sync device configuration
+```
+ncs_cli -u admin -g admin -C
 devices device sync-from
+```
 
-# Show MEF global configuration (including bandwidth profiles)
+### Show MEF global configuration (including bandwidth profiles)
+```
 show full-configuration mef-global
-
-# Show UNIs
+```
+### Show UNIs
+```
 show full-configuration mef-interfaces
+```
 
-# Provision a multipoint EVC with three UNIs.
+### Provision a multipoint EVC with three UNIs.
+Merge in the prepare configuration and inspect it:
+```
 load merge initial_data/mef-services.xml
-
-# Show the EVC configuration
 show configuration
-
-# Do it
+```
+Commit the configuration:
+```
 commit
+```
 
-# Update bandwidth profile for the norwegian endpoint
+### Update bandwidth profile for the norwegian endpoint
 set mef-services carrier-ethernet subscriber-services evc sd-wan \
 end-points end-point uni-kvantel ingress-bwp-per-evc \
 bw-profile-flow-parameters BANDWIDTH_LTE2
 
-# Show the correspondig commands to be sent to the device
+### Show the correspondig commands to be sent to the device
+```
 commit dry-run outformat native
-
-# Do it
+```
+If it looks good, commit
+```
 commit
-
-# Activate the new settings
+```
+We can then activate the new settings
+```
 request devices device 1645-norway rpc \
 rpc-activate-configuration activate-configuration
+```
